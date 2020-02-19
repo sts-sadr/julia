@@ -277,6 +277,8 @@ end
 
     @test ismissing(Dict(1=>missing) == Dict(1=>missing))
     @test isequal(Dict(1=>missing), Dict(1=>missing))
+    d = Dict(1=>missing)
+    @test ismissing(d == d)
 
     @test Dict(missing=>1) == Dict(missing=>1)
     @test isequal(Dict(missing=>1), Dict(missing=>1))
@@ -716,6 +718,8 @@ import Base.ImmutableDict
     d5 = ImmutableDict(v...)
     @test d5 == d2
     @test collect(d5) == v
+
+    @test !haskey(ImmutableDict(-0.0=>1), 0.0)
 end
 
 @testset "filtering" begin
